@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.1/math.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="vectorgraph2d.css">
+    <meta charset="utf-8" />
+	<title>VectorGraph2D Web Version</title>
+  </head>
+  <body>
+  <script src="WindowHandler.js"></script>
+	<script src="vectorgraph2d.js"></script>
+	<div class="main-div">
+		<div id="gui-div">
+			<h3 style="font-weight:lighter;">VectorGraph2D</h3>
+			<hr>
+			
+			<div class="padded-div">
+				<button class="round-inline-btn" onclick="handler.zoomIn();">Zoom in</button>
+				<button class="round-inline-btn" onclick="handler.zoomOut();">Zoom out</button><br><br>
+				<label for="grid-checkbox">Grid</label>
+				<input type="checkbox" onchange="handler.toggleGridlines();" id="grid-checkbox" checked></input><br>
+				<label for="axes-checkbox">Axes</label>
+				<input type="checkbox" onchange="handler.toggleAxes();" id="axes-checkbox" checked></input><br>
+			</div><br>
+			
+			<div class="core" id="core-object-div">
+				<div class="core-field">
+					<div class="core-header">
+						<div style="flex-grow:2;">Vector Field</div><input type="checkbox" id="core-field-enabled" onchange="needsUpdate = true;" checked></input>
+					</div>
+					<label for="core-field-box-x">dx/dt: </label>
+					<input type="text" id="core-field-box-x" value="y" oninput="handleFunctionBoxes();"></input><br>
+					<label for="core-field-box-y">dy/dt: </label>
+					<input type="text" id="core-field-box-y" value="-x" oninput="handleFunctionBoxes();"></input><br><br>
+					
+					<!--<select id="core-field-style-dropdown" class="wide-dropdown">
+						<option>Style 1</option>
+						<option>Style 2</option>
+					</select>-->
+				</div>
+				
+				<div class="core-field">
+					<div class="core-header">
+						<div style="flex-grow:2;">Flow</div><input type="checkbox" id="core-flow-enabled" onchange="needsUpdate = true;"></input>
+					</div>
+				</div>
+			</div>
+			
+			<select id="new-object-dropdown" class="wide-dropdown" onchange="ui.addObject();">
+				<option value="ignore" disabled selected>Add new object...</option>
+				<option value="1">Divergence Meter</option>
+				<option value="2">Curl Meter</option>
+				<option value="3">Flowline</option>
+				<option value="4">Constant</option>
+				<option value="5">Parametric path</option> <!-- MUST have piecewise option -->
+			</select>
+			<hr>
+			<div id="object-div"></div><br>
+		</div>
+		<div id="canvas-div"></div>
+	</div>
+  </body>
+</html>
